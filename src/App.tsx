@@ -1,5 +1,4 @@
 // App.tsx
-import { useState } from "react";
 import {
   Reality,
   SceneGraph,
@@ -13,8 +12,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { initScene } from "@webspatial/react-sdk";
 
 export default function App() {
-  // Optional: simple rotation to prove it's "alive"
-  const [rot, setRot] = useState({ x: 0, y: 0, z: 0 });
 
   return (
     <Router basename={__XR_ENV_BASE__}>
@@ -23,7 +20,7 @@ export default function App() {
         <Route
           path="/"
           element={
-            <div style={{ width: "100vw", height: "100vh" }}>
+            <div>
               <p>Humming Bird</p>
               <img src={`${__XR_ENV_BASE__}/logo.jpg`} alt="logo" enable-xr className="imagetest"/>
               <p className="read-the-docs">
@@ -48,45 +45,16 @@ export default function App() {
                       Open Second Scene
               </button>
               <p>3D Model of a Humming Bird</p>
-              <Reality
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  "--xr-depth": 100, // depth in meters
-                }}
-              >
-                {/* 1. Define materials first */}
-                <UnlitMaterial id="floorMat" color="#444444" />
+              <Reality style={{ width: '500px', height: '500px', '--xr-depth': 100 }}>
                 
-                {/* 2. Load models (optional) */}
-                <ModelAsset 
-                  id="bird" 
-                  src={`${__XR_ENV_BASE__}/models/bird.usdz`}
-                />
+                <UnlitMaterial id="red" color="#ff0000" />
 
-                {/* 3. Scene content */}
+                <ModelAsset id="bird" src={`${__XR_ENV_BASE__}/models/bird.usdz`} />
+
                 <SceneGraph>
-                  {/* Floor box */}
-                  <BoxEntity
-                    materials={["floorMat"]}
-                    width={1.5}
-                    height={0.02}
-                    depth={1.5}
-                    position={{ x: 0, y: -0.3, z: 0 }}
-                  />
-
-                  {/* 3D model instance */}
-                  <ModelEntity
-                    model="bird"
-                    position={{ x: 0, y: 0, z: 0.3 }}
-                    rotation={rot}
-                    scale={{ x: 0.5, y: 0.5, z: 0.5 }}
-                    onSpatialTap={(e) => {
-                      setRot((prev) => ({ ...prev, y: prev.y + Math.PI / 4 }));
-                      console.log("3D position:", e.detail.location3D);
-                    }}
-                  />
+                  <BoxEntity materials={['red']} width={0.2} height={0.2} depth={0.2} />
                 </SceneGraph>
+
               </Reality>
             </div>
           }
