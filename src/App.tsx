@@ -25,7 +25,29 @@ export default function App() {
           element={
             <div style={{ width: "100vw", height: "100vh" }}>
               <p>Humming Bird</p>
-              <img src='/models/logo.jpg' alt="logo" enable-xr className="imagetest"/>
+              <img src={`${__XR_ENV_BASE__}/logo.jpg`} alt="logo" enable-xr className="imagetest"/>
+              <p className="read-the-docs">
+                      Click the button to open second scene
+              </p>
+              <button
+                    className='spatialbutton'
+                    enable-xr
+                      onClick={() => {
+                        initScene("secondScene", prevConfig => {
+                          return {
+                            ...prevConfig,
+                            defaultSize: {
+                              width: 1000,
+                              height: 1000,
+                            },
+                          };
+                        });
+                        window.open(`${__XR_ENV_BASE__}/second-page`, "secondScene");
+                      }}
+                    >
+                      Open Second Scene
+              </button>
+              <p>3D Model of a Humming Bird</p>
               <Reality
                 style={{
                   width: "100%",
@@ -39,7 +61,7 @@ export default function App() {
                 {/* 2. Load models (optional) */}
                 <ModelAsset 
                   id="bird" 
-                  src='/models/bird.usdz'
+                  src={`${__XR_ENV_BASE__}/models/bird.usdz`}
                 />
 
                 {/* 3. Scene content */}
@@ -66,27 +88,6 @@ export default function App() {
                   />
                 </SceneGraph>
               </Reality>
-              <p className="read-the-docs">
-                      Click the button to open second scene
-                    </p>
-                    <button
-                    className='spatialbutton'
-                    enable-xr
-                      onClick={() => {
-                        initScene("secondScene", prevConfig => {
-                          return {
-                            ...prevConfig,
-                            defaultSize: {
-                              width: 1000,
-                              height: 1000,
-                            },
-                          };
-                        });
-                        window.open(`${__XR_ENV_BASE__}/second-page`, "secondScene");
-                      }}
-                    >
-                      Open Second Scene
-                    </button>
             </div>
           }
           />
