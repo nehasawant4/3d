@@ -1,6 +1,21 @@
-import { Reality, SceneGraph, BoxEntity, UnlitMaterial } from '@webspatial/react-sdk';
+import { Reality, SceneGraph, BoxEntity, UnlitMaterial, Entity } from '@webspatial/react-sdk';
+import React, { useState, useEffect } from 'react';
 
 export default function ThreeDPage() {
+  const [boxRotation, setBoxRotation] = useState({ x: 0, y: 0, z: 0 });
+
+  useEffect(() => {
+    let frameId: number;
+
+    const animate = () => {
+      setBoxRotation(prev => ({ ...prev, y: prev.y + 0.1 })); // spin around Y
+      frameId = requestAnimationFrame(animate);
+    };
+
+    frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
     return (
       <Reality
         style={{
@@ -19,21 +34,29 @@ export default function ThreeDPage() {
         <UnlitMaterial id="bottom" color="#f97316" />  {/* orange */}
 
         <SceneGraph>
+        <Entity
+          position={{ x: 0, y: 0, z: 0.9 }}             // move the whole group
+          rotation={boxRotation}   // spin the whole group
+          scale={{ x: 1, y: 1, z: 1 }}                  // scale whole group
+        >
+          {/* Box 1 */}
           <BoxEntity
-            splitFaces={true}
-            materials={[
-              'front',
-              'back',
-              'left',
-              'right',
-              'top',
-              'bottom',
-            ]}
-            width={0.3}
-            height={0.3}
-            depth={0.3}
-            position={{ x: 0, y: 0, z: 0.4 }}
+            materials={['top']}
+            width={0.1}
+            height={0.1}
+            depth={0.1}
+            position={{ x: 0, y: 0, z: 0 }}
           />
+
+          {/* Box 2 (offset on X) */}
+          <BoxEntity
+            materials={['left']}
+            width={0.1}
+            height={0.1}
+            depth={0.1}
+            position={{ x: 0.15, y: 0, z: 0 }}
+          />
+        </Entity>
         </SceneGraph>
       </Reality>
     );

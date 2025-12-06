@@ -104,8 +104,7 @@ const App: React.FC = () => {
       return (
         <Model style={{ width: '400px', height: '400px' }}>
           <source src={`${__XR_ENV_BASE__}/models/bird.usdz`} type="model/vnd.usdz+zip" />
-          <source src={`${__XR_ENV_BASE__}/models/bird.glb`} type="model/gltf-binary" />
-          <div>Model failed to load.</div>
+          <div>Model failed to load</div>
         </Model>
       );
     }
@@ -156,7 +155,7 @@ const App: React.FC = () => {
                 console.log('3D position:', e.detail.location3D);
                 console.log('Material now:', boxColor);
               }}
-              //rotation={boxRotation}   
+              rotation={boxRotation}   
             />
           )}
 
