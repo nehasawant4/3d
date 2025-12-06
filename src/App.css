@@ -54,3 +54,8 @@
 .drag3d:active {
   user-select: none;
 }
+
+html.is-spatial {
+  background-color: transparent;
+  --xr-background-material: transparent;
+}

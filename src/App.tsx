@@ -13,7 +13,7 @@ import { initScene } from "@webspatial/react-sdk";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import SecondPage from "./SecondPage";
 import ThreeDPage from "./ThreeDPage";
-
+import Object from "./Object";
 
 type Selection = 'image' | 'box' | 'static' | 'dynamic' | 'multiface';
 
@@ -198,6 +198,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/second-page" element={<SecondPage />} />
         <Route path="/3d-page" element={<ThreeDPage />} />
+        <Route path="/object-page" element={<Object />} />
 
         <Route
           path="/"
@@ -257,22 +258,31 @@ const App: React.FC = () => {
 
                 {/* Navigation */}
                 <h2 style={{ marginTop: 20, fontSize: 16 }}>Navigation</h2> 
-
-                <Link
-                  to="/second-page"
-                  target="_blank"
+                <button
                   style={{
                     padding: '10px 12px',
                     borderRadius: 8,
                     border: '1px solid rgba(255,255,255,0.3)',
                     background: 'rgba(15,23,42,0.9)',
                     color: 'white',
-                    textDecoration: 'none',
-                    marginBottom: 8,
+                    cursor: 'pointer',
                   }}
+                  onClick={() => {
+                    initScene("objectScene", prevConfig => {
+                      return {
+                        ...prevConfig,
+                        defaultSize: {
+                          width: 500,
+                          height: 500,
+                        }
+                      };
+                    });
+                    window.open(`${__XR_ENV_BASE__}/object-page`, "objectScene")
+                  }
+                  }
                 >
-                  Open Second Page (Link)
-                </Link>
+                  3D Object
+                </button>
 
                 <button
                   style={{
@@ -287,7 +297,7 @@ const App: React.FC = () => {
                     window.open(`${__XR_ENV_BASE__}/second-page`, "secondScene")
                   }
                 >
-                  Open Second Page (Button)
+                  Open Second Page 
                 </button>
                 <button
                   style={{
