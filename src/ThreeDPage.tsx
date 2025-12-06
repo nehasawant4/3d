@@ -1,4 +1,9 @@
-import { Reality, SceneGraph, BoxEntity, UnlitMaterial, Entity } from '@webspatial/react-sdk';
+import { Reality, SceneGraph, BoxEntity, UnlitMaterial, Entity,
+  PlaneEntity,
+  SphereEntity,
+  ConeEntity,
+  CylinderEntity,
+ } from '@webspatial/react-sdk';
 import React, { useState, useEffect } from 'react';
 
 export default function ThreeDPage() {
@@ -26,35 +31,49 @@ export default function ThreeDPage() {
         }}
       >
         {/* 6 different materials, one per face */}
-        <UnlitMaterial id="front"  color="#ef4444" />  {/* red    */}
-        <UnlitMaterial id="back"   color="#3b82f6" />  {/* blue   */}
-        <UnlitMaterial id="left"   color="#22c55e" />  {/* green  */}
-        <UnlitMaterial id="right"  color="#eab308" />  {/* yellow */}
-        <UnlitMaterial id="top"    color="#a855f7" />  {/* purple */}
-        <UnlitMaterial id="bottom" color="#f97316" />  {/* orange */}
+        <UnlitMaterial id="red"  color="#ef4444" />  {/* red    */}
+        <UnlitMaterial id="blue"   color="#3b82f6" />  {/* blue   */}
+        <UnlitMaterial id="green"   color="#22c55e" />  {/* green  */}
+        <UnlitMaterial id="yellow"  color="#eab308" />  {/* yellow */}
+        <UnlitMaterial id="purple"    color="#a855f7" />  {/* purple */}
+        <UnlitMaterial id="orange" color="#f97316" />  {/* orange */}
 
         <SceneGraph>
         <Entity
-          position={{ x: 0, y: 0, z: 0.9 }}             // move the whole group
-          rotation={boxRotation}   // spin the whole group
-          scale={{ x: 1, y: 1, z: 1 }}                  // scale whole group
+          position={{ x: 0, y: 0, z: 0.9 }}   // move the whole group
+          scale={{ x: 1, y: 1, z: 1 }}        // scale whole group
         >
-          {/* Box 1 */}
+
+          {/* Box */}
           <BoxEntity
-            materials={['top']}
+            materials={['purple']}
             width={0.1}
             height={0.1}
             depth={0.1}
+            position={{ x: -0.15, y: 0, z: 0 }}
+          />
+
+          {/* Sphere */}
+          <SphereEntity
+            materials={['yellow']}
+            radius={0.06}
             position={{ x: 0, y: 0, z: 0 }}
           />
 
-          {/* Box 2 (offset on X) */}
-          <BoxEntity
-            materials={['left']}
-            width={0.1}
-            height={0.1}
-            depth={0.1}
+          {/* Cone */}
+          <ConeEntity
+            materials={['green']}
+            radius={0.06}
+            height={0.12}
             position={{ x: 0.15, y: 0, z: 0 }}
+          />
+
+          {/* Cylinder */}
+          <CylinderEntity
+            materials={['blue']}
+            radius={0.05}
+            height={0.12}
+            position={{ x: 0.3, y: 0, z: 0 }}
           />
         </Entity>
         </SceneGraph>
