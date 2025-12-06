@@ -40,3 +40,17 @@
 .read-the-docs {
   color: #888;
 }
+
+.drag3d {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: none;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.drag3d:active {
+  user-select: none;
+}
